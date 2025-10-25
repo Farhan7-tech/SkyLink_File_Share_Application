@@ -6,12 +6,15 @@ SkyLinkSB/.classpath
 SkyLinkSB/.project
 SkyLinkSB/.settings/
 SkyLinkSB/upload/
+SkyLinkSB/.env
+SkyLinkSB/Dockerfile
 
 # ---- React ----
 SkyLinkUI/node_modules/
 SkyLinkUI/.env
 SkyLinkUI/.idea/
 SkyLinkUI/build/
+SkyLinkUI/dist/
 
 ### IntelliJ IDEA ###
 .idea

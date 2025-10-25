@@ -108,11 +108,11 @@ export const testimonials = [
     company: "Self-employed",
     image: "https://randomuser.me/api/portraits/men/46.jpg",
     quote:
-      "As a freelancer, I need to share large design files with clients securely. CloudShare's simple interface and reasonable pricing make it my go-to solution.",
+      "As a freelancer, I need to share large design files with clients securely. SkyLink simple interface and reasonable pricing make it my go-to solution.",
     rating: 5,
   },
   {
-    name: "Priya Sharma",
+    name: "Alex Morgan",
     role: "Project Manager",
     company: "TechSolutions Ltd.",
     image: "https://randomuser.me/api/portraits/women/65.jpg",
