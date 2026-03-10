@@ -3,7 +3,9 @@ import {
   Files,
   LayoutDashboard,
   Receipt,
+  Share2,
   Upload,
+  HelpCircle,
 } from "lucide-react";
 
 export const features = [
@@ -137,20 +139,32 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: "03",
+    label: "Share OR Recieve",
+    icon: Share2,
+    path: "/Share",
+  },
+  {
+    id: "04",
     label: "My Files",
     icon: Files,
     path: "/my-files",
   },
   {
-    id: "04",
+    id: "05",
     label: "Subscription",
     icon: CreditCard,
     path: "/subscriptions",
   },
   {
-    id: "05",
+    id: "06",
     label: "Transactions",
     icon: Receipt,
     path: "/transactions",
+  },
+  {
+    id: "07",
+    label: "Support",
+    icon: HelpCircle,
+    path: "/support",
   },
 ];

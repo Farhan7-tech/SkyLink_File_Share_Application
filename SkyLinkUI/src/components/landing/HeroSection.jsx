@@ -2,16 +2,16 @@ import { assets } from "../../assets/assets.js";
 
 const HeroSection = ({ openSignIn, openSignUp }) => {
   return (
-    <div className="landing-page-content relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-indigo-50 opacity-80 z-0 pointer-events-none"></div>
+    <div className="landing-page-content relative dark:bg-gray-900">
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-indigo-50 opacity-80 z-0 pointer-events-none dark:from-purple-900/20 dark:to-indigo-900/20"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-28">
           <div className="text-center">
-            <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl dark:text-white">
               <span className="block">Share Files Securely with</span>
               <span className="block text-purple-500">SkyLink</span>
             </h1>
-            <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+            <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl dark:text-gray-400">
               Upload, manage, and share your files securely. Accessible
               anywhere, anytime.
             </p>
@@ -25,7 +25,7 @@ const HeroSection = ({ openSignIn, openSignUp }) => {
                 </button>
                 <button
                   onClick={() => openSignIn()}
-                  className="flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-all duration-200 shadow-md hover:shadow-lg"
+                  className="flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-all duration-200 shadow-md hover:shadow-lg dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700"
                 >
                   Sign In
                 </button>
@@ -35,7 +35,7 @@ const HeroSection = ({ openSignIn, openSignUp }) => {
         </div>
 
         <div className="relative">
-          <div className="aspect-w-16 rounded-lg shadow-xl overflow-hidden">
+          <div className="aspect-w-16 rounded-lg shadow-xl overflow-hidden border dark:border-gray-700">
             <img
               src={assets.dashboard}
               alt="cloudshare dashboard"
@@ -46,7 +46,7 @@ const HeroSection = ({ openSignIn, openSignUp }) => {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="mt-4 text-base text-gray-500">
+          <p className="mt-4 text-base text-gray-500 dark:text-gray-400">
             All your files are encrypted and stored securely with
             enterprise-grade security protocols.
           </p>

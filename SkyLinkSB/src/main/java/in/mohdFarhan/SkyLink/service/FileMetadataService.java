@@ -37,16 +37,11 @@ public class FileMetadataService {
             throw new RuntimeException("Not enough credits to upload files. Please purchase more credits");
         }
 
-        Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
-        Files.createDirectories(uploadPath);
-
         for (MultipartFile file : files) {
             String fileName = UUID.randomUUID()+"."+ StringUtils.getFilenameExtension(file.getOriginalFilename());
-            Path targetLocation = uploadPath.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             FileMetadataDocument fileMetadata = FileMetadataDocument.builder()
-                    .fileLocation(targetLocation.toString())
+                    .fileContent(file.getBytes())
                     .name(file.getOriginalFilename())
                     .size(file.getSize())
                     .type(file.getContentType())
@@ -67,12 +62,12 @@ public class FileMetadataService {
     private FileMetadataDTO mapToDTO(FileMetadataDocument fileMetadataDocument) {
         return FileMetadataDTO.builder()
                 .id(fileMetadataDocument.getId())
-                .fileLocation(fileMetadataDocument.getFileLocation())
                 .name(fileMetadataDocument.getName())
                 .size(fileMetadataDocument.getSize())
                 .type(fileMetadataDocument.getType())
                 .clerkId(fileMetadataDocument.getClerkId())
                 .isPublic(fileMetadataDocument.getIsPublic())
+                .fileContent(fileMetadataDocument.getFileContent())
                 .uploadedAt(fileMetadataDocument.getUploadedAt())
                 .build();
     }
@@ -107,9 +102,6 @@ public class FileMetadataService {
             if (!file.getClerkId().equals(currentProfile.getClerkId())) {
                 throw new RuntimeException("File is not belong to current user");
             }
-
-            Path filePath = Paths.get(file.getFileLocation());
-            Files.deleteIfExists(filePath);
 
             fileMetadataRepository.deleteById(id);
         }catch (Exception e) {

@@ -2,14 +2,14 @@ import { Star } from "lucide-react";
 
 const TestimonialsSection = ({ testimonials }) => {
   return (
-    <div className="py-20 bg-white overflow-hidden">
+    <div className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-white">
               Trusted by Professionals Worldwide
             </h2>
-            <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-500">
+            <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-500 dark:text-gray-400">
               See what our users have to say about SkyLink
             </p>
           </div>
@@ -17,7 +17,7 @@ const TestimonialsSection = ({ testimonials }) => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-500 hover:scale-105"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition duration-500 hover:scale-105 border dark:border-gray-700"
               >
                 <div className="p-8">
                   <div className="flex items-center">
@@ -25,14 +25,14 @@ const TestimonialsSection = ({ testimonials }) => {
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="h-12 w-12 rounded-full"
+                        className="h-12 w-12 rounded-full border dark:border-gray-600"
                       />
                     </div>
                     <div className="ml-4">
-                      <h4 className="text-lg font-bold text-gray-900">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-white">
                         {testimonial.name}
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         {testimonial.role}, {testimonial.company}
                       </p>
                     </div>
@@ -45,13 +45,13 @@ const TestimonialsSection = ({ testimonials }) => {
                         className={`${
                           i < testimonial.rating
                             ? "text-yellow-400"
-                            : "text-gray-300"
+                            : "text-gray-300 dark:text-gray-600"
                         } fill-current`}
                       />
                     ))}
                   </div>
                   <blockquote className="mt-4">
-                    <p className="text-base italic text-gray-600">
+                    <p className="text-base italic text-gray-600 dark:text-gray-300">
                       "{testimonial.quote}"
                     </p>
                   </blockquote>

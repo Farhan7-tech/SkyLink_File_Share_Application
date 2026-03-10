@@ -1,4 +1,4 @@
-const BASE_URL = "https://skylink-jql9.onrender.com/api/v1.0";
+const BASE_URL = "http://localhost:8080/api/v1.0";
 
 export const apiEndpoints = {
   FETCH_FILES: `${BASE_URL}/files/my`,
@@ -11,4 +11,5 @@ export const apiEndpoints = {
   VERIFY_PAYMENT: `${BASE_URL}/payments/verify-payment`,
   TRANSACTIONS: `${BASE_URL}/transactions`,
   PUBLIC_FILE_VIEW: (fileId) => `${BASE_URL}/files/public/${fileId}`,
+  SUPPORT: `${BASE_URL}/support`,
 };

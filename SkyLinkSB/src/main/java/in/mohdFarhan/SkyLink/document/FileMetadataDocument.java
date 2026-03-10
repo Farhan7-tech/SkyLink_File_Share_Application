@@ -23,6 +23,6 @@ public class FileMetadataDocument {
     private Long size;
     private String clerkId;
     private Boolean isPublic;
-    private String fileLocation;
+    private byte[] fileContent;
     private LocalDateTime uploadedAt;
 }

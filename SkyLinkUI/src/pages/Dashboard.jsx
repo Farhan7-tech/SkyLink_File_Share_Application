@@ -136,8 +136,8 @@ const Dashboard = () => {
     return (
         <DashboardLayout activeMenu="Dashboard">
             <div className="p-6">
-                <h1 className="text-2xl font-bold mb-6">My Drive</h1>
-                <p className="text-gray-600 mb-6">Upload, manage, and share your files securely</p>
+                <h1 className="text-2xl font-bold mb-6 dark:text-white">My Drive</h1>
+                <p className="text-gray-600 mb-6 dark:text-gray-400">Upload, manage, and share your files securely</p>
                 {message && (
                     <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
                         messageType === 'error' ? 'bg-red-50 text-red-700' :
@@ -163,9 +163,9 @@ const Dashboard = () => {
                     {/*right column*/}
                     <div className="w-full md:w-[60%]">
                         {loading ? (
-                            <div className="bg-white rounded-lg shadow p-8 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-white rounded-lg shadow p-8 flex flex-col items-center justify-center min-h-[300px] dark:bg-gray-800">
                                 <Loader2 size={40} className="text-purple-500 animate-spin mb-4" />
-                                <p className="text-gray-500">Loading your files...</p>
+                                <p className="text-gray-500 dark:text-gray-400">Loading your files...</p>
                             </div>
                         ) : (
                             <RecentFiles files={files} />

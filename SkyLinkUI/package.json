@@ -1,5 +1,5 @@
 {
-  "name": "SkyLink",
+  "name": "skylink",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,7 +18,9 @@
     "npm": "^11.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.3.8",
     "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.7.0",
     "tailwindcss": "^4.1.11"
   },
@@ -26,6 +28,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
+    "baseline-browser-mapping": "^2.10.0",
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",

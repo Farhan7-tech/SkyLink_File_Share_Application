@@ -12,20 +12,20 @@ const FileListRow = ({ file, onDownload, onDelete, onTogglePublic, onShareLink, 
     const navigate = useNavigate();
 
     return (
-        <tr key={file.id} className="hover:bg-gray-50 transition-colors">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+        <tr key={file.id} className="hover:bg-gray-50 transition-colors dark:hover:bg-gray-700">
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
                 <div className="flex items-center gap-2">
                     {getFileIcon(file)}
                     {file.name}
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                 {(file.size / 1024).toFixed(1)} KB
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                 {new Date(file.uploadedAt).toLocaleDateString()}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => onTogglePublic(file)}
@@ -58,7 +58,7 @@ const FileListRow = ({ file, onDownload, onDelete, onTogglePublic, onShareLink, 
                         <button
                             onClick={() => onDownload(file)}
                             title="Download"
-                            className="text-gray-500 hover:text-blue-600">
+                            className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                             <Download size={18} />
                         </button>
                     </div>
@@ -66,7 +66,7 @@ const FileListRow = ({ file, onDownload, onDelete, onTogglePublic, onShareLink, 
                         <button
                             onClick={() => onDelete(file.id)}
                             title="Delete"
-                            className="text-gray-500 hover:text-red-600">
+                            className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-500">
                             <Trash2 size={18} />
                         </button>
                     </div>
@@ -77,7 +77,7 @@ const FileListRow = ({ file, onDownload, onDelete, onTogglePublic, onShareLink, 
                                 title="View File"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-gray-500 hover:text-blue-600">
+                                className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                                 <Eye size={18} />
                             </a>
                         ) : (

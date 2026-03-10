@@ -5,6 +5,7 @@ import in.mohdFarhan.SkyLink.dto.FileMetadataDTO;
 import in.mohdFarhan.SkyLink.service.FileMetadataService;
 import in.mohdFarhan.SkyLink.service.UserCreditsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -55,8 +56,7 @@ public class FileController {
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> download(@PathVariable String id) throws IOException {
         FileMetadataDTO downloadbleFile = fileMetadataService.getDownloadableFile(id);
-        Path path = Paths.get(downloadbleFile.getFileLocation());
-        Resource resource = new UrlResource(path.toUri());
+        ByteArrayResource resource = new ByteArrayResource(downloadbleFile.getFileContent());
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
