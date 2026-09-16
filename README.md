@@ -1,4 +1,4 @@
-# SkyLink File Share Application
+<a href="https://github.com/Farhan7-tech/SkyLink_File_Share_Application"><img src=".github/assets/banner.svg" width="100%" alt="SkyLink: share a file with six digits."></a>
 
 SkyLink is a full-stack file sharing application with secure authentication, file uploads, and shareable links, built as a Spring Boot backend paired with a React frontend.
 
@@ -52,3 +52,7 @@ npm run dev
 ## License
 
 This project currently has no license specified.
+
+<br>
+
+<a href="https://github.com/Farhan7-tech"><img src=".github/assets/footer.svg" width="100%" alt="Built by Mohd Farhan. More projects on GitHub."></a>
