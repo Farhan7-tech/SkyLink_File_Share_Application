@@ -9,7 +9,7 @@ import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Toaster } from "react-hot-toast";
 import { UserCreditsProvider } from "./context/UserCreditsContext.jsx";
 import PublicFileView from "./pages/PublicFileView.jsx";
-import Home from "./pages/share.jsx";
+import Home from "./pages/Share.jsx";
 import Support from "./pages/Support.jsx";
 
 const App = () => {
