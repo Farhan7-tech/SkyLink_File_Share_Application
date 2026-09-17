@@ -102,6 +102,20 @@ public class ProfileService {
         }
 
         String clerkId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return profileRepository.findByClerkId(clerkId);
+        ProfileDocument profile = profileRepository.findByClerkId(clerkId);
+
+        // Profiles are normally created by the Clerk webhook on user.created, but that
+        // requires a publicly reachable webhook endpoint to be configured in the Clerk
+        // dashboard. Self-heal here so a signed-in user without one isn't stuck.
+        if (profile == null) {
+            profile = ProfileDocument.builder()
+                    .clerkId(clerkId)
+                    .credits(5)
+                    .createdAt(Instant.now())
+                    .build();
+            profile = profileRepository.save(profile);
+        }
+
+        return profile;
     }
 }

@@ -89,12 +89,14 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(clerkId, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            filterChain.doFilter(request, response);
         } catch (Exception e) {
             logger.warn("JWT verification failed for {} {}: {}", request.getMethod(), request.getRequestURI(), e.toString());
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid JWT token: "+e.getMessage());
             return;
         }
 
+        // Outside the JWT-parsing try/catch: a downstream exception here is an application
+        // error, not an auth failure, and shouldn't be reported as a 403.
+        filterChain.doFilter(request, response);
     }
 }
