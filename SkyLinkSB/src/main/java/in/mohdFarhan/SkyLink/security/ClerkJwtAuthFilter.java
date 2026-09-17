@@ -9,6 +9,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +26,8 @@ import java.util.Collections;
 @Component
 @RequiredArgsConstructor
 public class ClerkJwtAuthFilter extends OncePerRequestFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClerkJwtAuthFilter.class);
 
     @Value("${clerk.issuer}")
     private String clerkIssuer;
@@ -87,6 +91,7 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             filterChain.doFilter(request, response);
         } catch (Exception e) {
+            logger.warn("JWT verification failed for {} {}: {}", request.getMethod(), request.getRequestURI(), e.toString());
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid JWT token: "+e.getMessage());
             return;
         }
