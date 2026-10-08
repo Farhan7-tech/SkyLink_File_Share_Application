@@ -3,6 +3,7 @@ package in.mohdFarhan.SkyLink.service;
 import in.mohdFarhan.SkyLink.document.UserCredits;
 import in.mohdFarhan.SkyLink.repository.UserCreditsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,11 @@ public class UserCreditsService {
                 .credits(5)
                 .plan("BASIC")
                 .build();
-        return userCreditsRepository.save(userCredits);
+        try {
+            return userCreditsRepository.save(userCredits);
+        } catch (DuplicateKeyException e) {
+            return userCreditsRepository.findByClerkId(clerkId).orElseThrow(() -> e);
+        }
     }
 
     public UserCredits getUserCredits(String clerkId) {

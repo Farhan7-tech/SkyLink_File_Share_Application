@@ -4,6 +4,7 @@ import in.mohdFarhan.SkyLink.document.ProfileDocument;
 import in.mohdFarhan.SkyLink.dto.ProfileDTO;
 import in.mohdFarhan.SkyLink.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,11 @@ public class ProfileService {
                 .createdAt(Instant.now())
                 .build();
 
-        profile = profileRepository.save(profile);
+        try {
+            profile = profileRepository.save(profile);
+        } catch (DuplicateKeyException e) {
+            return updateProfile(profileDTO);
+        }
 
         return ProfileDTO.builder()
                 .id(profile.getId())
@@ -113,7 +118,12 @@ public class ProfileService {
                     .credits(5)
                     .createdAt(Instant.now())
                     .build();
-            profile = profileRepository.save(profile);
+            try {
+                profile = profileRepository.save(profile);
+            } catch (DuplicateKeyException e) {
+                profile = profileRepository.findByClerkId(clerkId);
+                if (profile == null) throw e;
+            }
         }
 
         return profile;

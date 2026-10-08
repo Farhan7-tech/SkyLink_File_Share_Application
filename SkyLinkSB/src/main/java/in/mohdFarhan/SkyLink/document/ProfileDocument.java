@@ -20,6 +20,7 @@ public class ProfileDocument {
 
     @Id
     private String id;
+    @Indexed(unique = true)
     private String clerkId;
     @Indexed(unique = true)
     private String email;
