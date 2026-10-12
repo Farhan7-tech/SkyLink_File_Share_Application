@@ -63,7 +63,7 @@ export default function FileUpload({ onFileUpload, isUploading }) {
             Fast
           </span>
           <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-            P2P
+            One-time
           </span>
         </div>
       </div>

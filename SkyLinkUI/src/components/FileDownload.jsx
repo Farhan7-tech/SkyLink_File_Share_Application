@@ -89,7 +89,7 @@ export default function FileDownload({ onDownload, isDownloading }) {
 
       <div className="pt-4 flex items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500">
         <Lock className="w-3 h-3" />
-        <span>End-to-end encrypted P2P transfer</span>
+        <span>One-time PIN · file deleted after download</span>
       </div>
     </div>
   );

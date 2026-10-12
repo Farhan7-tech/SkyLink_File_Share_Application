@@ -47,8 +47,8 @@ const HeroSection = ({ openSignIn, openSignUp }) => {
 
         <div className="mt-8 text-center">
           <p className="mt-4 text-base text-gray-500 dark:text-gray-400">
-            All your files are encrypted and stored securely with
-            enterprise-grade security protocols.
+            Sign-in protected uploads, public or private sharing, and
+            pay-as-you-go upload credits.
           </p>
         </div>
       </div>

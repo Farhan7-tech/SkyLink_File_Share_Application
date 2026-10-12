@@ -22,7 +22,7 @@ export default function InviteCode({ port, token }) {
           File Ready to Share!
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Your secure P2P tunnel is active. Share this unique PIN with the recipient.
+          Share this one-time PIN with the recipient. It works for a single download.
         </p>
       </div>
 

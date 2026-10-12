@@ -123,10 +123,10 @@ export default function Home() {
             <Share2 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl dark:text-white">
-            P2P File Transfer
+            Quick File Transfer
           </h1>
           <p className="mt-2 text-gray-500 dark:text-gray-400 text-lg">
-            Directly share files from your device to others securely.
+            Send a file with a one-time 6-digit PIN.
           </p>
         </header>
 
@@ -226,16 +226,15 @@ export default function Home() {
           <Info className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
           <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
             <span className="font-semibold block mb-1">How it works:</span>
-            P2P transfer allows you to share files directly without storing them
-            on our servers permanently. Keep this tab open until the recipient
-            finishes downloading the file.
+            Your file is relayed through SkyLink's transfer server and deleted
+            after the first successful download. Share the PIN right away: it
+            expires shortly after upload.
           </p>
         </div>
 
         <footer className="mt-12 text-center text-gray-500 text-xs dark:text-gray-400">
           <p>
-            © {new Date().getFullYear()} SkyLink • Secure Peer-to-Peer File
-            Transfer Protocol
+            © {new Date().getFullYear()} SkyLink • One-time file transfer
           </p>
         </footer>
       </div>

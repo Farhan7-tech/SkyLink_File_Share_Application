@@ -29,7 +29,7 @@ const Subscription = () => {
       features: [
         "Upload up to 500 files",
         "Access to all basic features",
-        "Priority support",
+        "Credits added right after payment",
       ],
       recommended: false,
     },
@@ -41,8 +41,7 @@ const Subscription = () => {
       features: [
         "Upload up to 5000 files",
         "Access to all premium features",
-        "Priority support",
-        "Advanced analytics",
+        "Credits added right after payment",
       ],
       recommended: true,
     },
