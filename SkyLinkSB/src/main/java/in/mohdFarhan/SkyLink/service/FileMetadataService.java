@@ -5,9 +5,14 @@ import in.mohdFarhan.SkyLink.document.ProfileDocument;
 import in.mohdFarhan.SkyLink.dto.FileMetadataDTO;
 import in.mohdFarhan.SkyLink.repository.FileMetadataRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -89,8 +94,29 @@ public class FileMetadataService {
     }
 
     public FileMetadataDTO getDownloadableFile(String id) {
-        FileMetadataDocument file = fileMetadataRepository.findById(id).orElseThrow(() -> new RuntimeException("File not found"));
+        FileMetadataDocument file = fileMetadataRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found"));
+
+        // Public files can be downloaded by anyone; private files only by their owner.
+        // Answer 404 rather than 403 so private file ids can't be probed.
+        if (!Boolean.TRUE.equals(file.getIsPublic())) {
+            String currentClerkId = getAuthenticatedClerkId();
+            if (currentClerkId == null || !currentClerkId.equals(file.getClerkId())) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+            }
+        }
         return mapToDTO(file);
+    }
+
+    // The download endpoint is open to anonymous users, so read the caller from the security
+    // context directly: ProfileService.getCurrentProfile() would create a profile for the
+    // anonymous principal.
+    private String getAuthenticatedClerkId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken || !authentication.isAuthenticated()) {
+            return null;
+        }
+        return authentication.getName();
     }
 
     public void deleteFile(String id) {
@@ -110,8 +136,13 @@ public class FileMetadataService {
     }
 
     public FileMetadataDTO togglePublic(String id) {
+        ProfileDocument currentProfile = profileService.getCurrentProfile();
         FileMetadataDocument file = fileMetadataRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found"));
+
+        if (!file.getClerkId().equals(currentProfile.getClerkId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "File does not belong to current user");
+        }
 
         file.setIsPublic(!file.getIsPublic());
         fileMetadataRepository.save(file);

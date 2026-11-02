@@ -41,13 +41,19 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
         // For webhook endpoints, skip JWT validation and continue the filter chain
         if (request.getRequestURI().contains("/webhooks") ||
                 request.getRequestURI().contains("/public") ||
-                    request.getRequestURI().contains("/download") ||
                         request.getRequestURI().contains("/health")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String authHeader = request.getHeader("Authorization");
+
+        // Public files can be downloaded without a token. When a token is sent it is still
+        // verified, so FileMetadataService can let the owner download their private files.
+        if (request.getRequestURI().contains("/download") && authHeader == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Authorization header missing/invalid");
