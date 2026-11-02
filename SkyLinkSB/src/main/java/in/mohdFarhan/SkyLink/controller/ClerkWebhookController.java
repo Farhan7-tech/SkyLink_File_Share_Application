@@ -12,10 +12,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
+import java.time.Instant;
+import java.util.Base64;
+
 @RestController
 @RequestMapping("/webhooks")
 @RequiredArgsConstructor
 public class ClerkWebhookController {
+
+    // Svix rejects messages whose timestamp is more than 5 minutes off, to stop replays
+    private static final long WEBHOOK_TOLERANCE_SECONDS = 5 * 60;
 
     @Value("${clerk.webhook.secret}")
     private String webhookSecret;
@@ -116,7 +127,32 @@ public class ClerkWebhookController {
         userCreditsService.createInitialCredits(clerkId);
     }
 
+    // Clerk signs webhooks with Svix: base64(HMAC-SHA256(secret, "id.timestamp.payload")),
+    // where the secret is the base64 part after the "whsec_" prefix
     private boolean verifyWebhookSignature(String svixId, String svixTimestamp, String svixSignature, String payload) {
-        return true;
+        try {
+            long timestamp = Long.parseLong(svixTimestamp);
+            if (Math.abs(Instant.now().getEpochSecond() - timestamp) > WEBHOOK_TOLERANCE_SECONDS) {
+                return false;
+            }
+
+            String secret = webhookSecret.startsWith("whsec_") ? webhookSecret.substring("whsec_".length()) : webhookSecret;
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(Base64.getDecoder().decode(secret), "HmacSHA256"));
+            byte[] expected = mac.doFinal((svixId + "." + svixTimestamp + "." + payload).getBytes(StandardCharsets.UTF_8));
+
+            // The header may hold several space-separated "v1,<signature>" entries (e.g. during secret rotation)
+            for (String versionedSignature : svixSignature.split(" ")) {
+                String[] parts = versionedSignature.split(",", 2);
+                if (parts.length == 2 && "v1".equals(parts[0])
+                        && MessageDigest.isEqual(expected, Base64.getDecoder().decode(parts[1]))) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (IllegalArgumentException | GeneralSecurityException e) {
+            // malformed timestamp, secret or signature
+            return false;
+        }
     }
 }

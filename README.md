@@ -29,7 +29,7 @@ SkyLink_File_Share_Application/
 ## Getting Started
 
 ### Prerequisites
-- Java 17+ and Maven
+- Java 21+ and Maven
 - Node.js and npm
 - A MongoDB instance
 - Environment variables for JWT secret, MongoDB URI, mail credentials, Razorpay keys, and Clerk keys
